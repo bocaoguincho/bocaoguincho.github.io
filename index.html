@@ -306,6 +306,16 @@
       2. Escolha <b>Adicionar à Tela de Início</b><br>
       3. Toque em <b>Adicionar</b>
     </div>
+    <div class="passos-ios" id="passos-android">
+      1. Toque no menu <b>⋮</b> no canto de cima do navegador<br>
+      2. Escolha <b>Instalar app</b> ou <b>Adicionar à tela inicial</b><br>
+      3. Confirme em <b>Instalar</b> / <b>Adicionar</b>
+    </div>
+    <div class="passos-ios" id="passos-app">
+      Você abriu o site dentro de outro app (Instagram, Facebook...).<br>
+      Toque no menu <b>⋮</b> ou <b>…</b> e escolha <b>Abrir no navegador</b>.
+      Lá vai aparecer a opção de adicionar à tela inicial.
+    </div>
   </div>
 
   <div class="faixa"></div>
@@ -358,44 +368,36 @@
 
   const caixa = document.getElementById("instalar");
   const botao = document.getElementById("instalar-botao");
-  const passosIos = document.getElementById("passos-ios");
+  const ua = navigator.userAgent;
   const jaInstalado = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone;
-  const ehIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const ehIos = /iphone|ipad|ipod/i.test(ua);
+  const dentroDeApp = /Instagram|FBAN|FBAV|FB_IAB|Line\/|TikTok/i.test(ua);
   let pedidoInstalacao = null;
 
-  function fechouAntes() {
-    try { return localStorage.getItem("instalar-fechado") === "1"; } catch (e) { return false; }
-  }
-  function mostrar() {
-    if (!jaInstalado && !fechouAntes()) caixa.classList.add("visivel");
-  }
+  // Aparece sempre, menos quando o site já está aberto pelo ícone instalado.
+  // Fechar no "×" esconde só nesta visita.
+  if (!jaInstalado) caixa.classList.add("visivel");
 
-  // Android / Chrome: o navegador avisa quando dá para instalar
+  // Android / Chrome: guarda o pedido de instalação para usar no botão
   window.addEventListener("beforeinstallprompt", function (e) {
     e.preventDefault();
     pedidoInstalacao = e;
-    mostrar();
   });
-
-  // iPhone: não existe botão automático, então mostramos o passo a passo
-  if (ehIos) mostrar();
 
   botao.addEventListener("click", function () {
     if (pedidoInstalacao) {
       pedidoInstalacao.prompt();
-      pedidoInstalacao.userChoice.finally(function () {
-        pedidoInstalacao = null;
-        caixa.classList.remove("visivel");
-      });
-    } else {
-      botao.style.display = "none";
-      passosIos.style.display = "block";
+      pedidoInstalacao.userChoice.finally(function () { pedidoInstalacao = null; });
+      return;
     }
+    // Sem instalação automática: mostra o passo a passo do aparelho
+    const passos = dentroDeApp ? "passos-app" : ehIos ? "passos-ios" : "passos-android";
+    botao.style.display = "none";
+    document.getElementById(passos).style.display = "block";
   });
 
   document.getElementById("instalar-fechar").addEventListener("click", function () {
     caixa.classList.remove("visivel");
-    try { localStorage.setItem("instalar-fechado", "1"); } catch (e) {}
   });
 
   window.addEventListener("appinstalled", function () {
