@@ -307,9 +307,9 @@
       3. Toque em <b>Adicionar</b>
     </div>
     <div class="passos-ios" id="passos-android">
-      1. Toque no menu <b>⋮</b> no canto de cima do navegador<br>
-      2. Escolha <b>Instalar app</b> ou <b>Adicionar à tela inicial</b><br>
-      3. Confirme em <b>Instalar</b> / <b>Adicionar</b>
+      1. Toque no menu <b>⋮</b> no canto de cima do Chrome<br>
+      2. Escolha <b>Adicionar à tela inicial</b><br>
+      3. Se perguntar, escolha <b>Criar atalho</b> e toque em <b>Adicionar</b>
     </div>
     <div class="passos-ios" id="passos-app">
       Você abriu o site dentro de outro app (Instagram, Facebook...).<br>
@@ -369,28 +369,19 @@
   const caixa = document.getElementById("instalar");
   const botao = document.getElementById("instalar-botao");
   const ua = navigator.userAgent;
-  const jaInstalado = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+  // Aberto pelo ícone da tela inicial (atalho do Android traz ?origem=atalho)
+  const jaInstalado = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone ||
+    /[?&]origem=atalho/.test(location.search);
   const ehIos = /iphone|ipad|ipod/i.test(ua);
   const dentroDeApp = /Instagram|FBAN|FBAV|FB_IAB|Line\/|TikTok/i.test(ua);
-  let pedidoInstalacao = null;
 
-  // Aparece sempre, menos quando o site já está aberto pelo ícone instalado.
+  // Aparece sempre, menos quando o site já está aberto pelo ícone.
   // Fechar no "×" esconde só nesta visita.
   if (!jaInstalado) caixa.classList.add("visivel");
 
-  // Android / Chrome: guarda o pedido de instalação para usar no botão
-  window.addEventListener("beforeinstallprompt", function (e) {
-    e.preventDefault();
-    pedidoInstalacao = e;
-  });
-
+  // Usamos atalho simples em vez de instalar como app: no Android a instalação
+  // de app (WebAPK) pode ser barrada pelo Play Protect como "não segura".
   botao.addEventListener("click", function () {
-    if (pedidoInstalacao) {
-      pedidoInstalacao.prompt();
-      pedidoInstalacao.userChoice.finally(function () { pedidoInstalacao = null; });
-      return;
-    }
-    // Sem instalação automática: mostra o passo a passo do aparelho
     const passos = dentroDeApp ? "passos-app" : ehIos ? "passos-ios" : "passos-android";
     botao.style.display = "none";
     document.getElementById(passos).style.display = "block";

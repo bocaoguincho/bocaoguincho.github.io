@@ -1,5 +1,5 @@
 // Service worker simples: guarda a página para abrir rápido (e até sem internet)
-const CACHE = "bocao-guincho-v2";
+const CACHE = "bocao-guincho-v3";
 const ARQUIVOS = ["./", "./index.html", "./manifest.json", "./icons/icon-192.png", "./icons/icon-512.png", "./caminhao.jpg"];
 
 self.addEventListener("install", (e) => {
@@ -24,6 +24,6 @@ self.addEventListener("fetch", (e) => {
         caches.open(CACHE).then((c) => c.put(e.request, copia));
         return resp;
       })
-      .catch(() => caches.match(e.request))
+      .catch(() => caches.match(e.request, { ignoreSearch: true }))
   );
 });
