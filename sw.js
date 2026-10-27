@@ -1,6 +1,6 @@
 // Service worker simples: guarda a página para abrir rápido (e até sem internet)
-const CACHE = "bocao-guincho-v1";
-const ARQUIVOS = ["./", "./index.html", "./manifest.json", "./icons/icon-192.png", "./icons/icon-512.png"];
+const CACHE = "bocao-guincho-v2";
+const ARQUIVOS = ["./", "./index.html", "./manifest.json", "./icons/icon-192.png", "./icons/icon-512.png", "./caminhao.jpg"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ARQUIVOS)));
