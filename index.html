@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bocão Guincho | Guincho 24h em SP e Litoral</title>
+<meta name="description" content="Guincho 24 horas em toda São Paulo e litoral. Pane elétrica, pane seca, emergências e transporte agendado. Chame no WhatsApp.">
+<meta name="theme-color" content="#111111">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Guincho 24h">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --amarelo: #FFC400;
+    --amarelo-escuro: #E0A800;
+    --preto: #111111;
+    --preto-2: #1C1C1C;
+    --cinza: #2A2A2A;
+    --texto: #F5F5F5;
+    --texto-2: #B5B5B5;
+    --verde: #25D366;
+    --verde-escuro: #1DA851;
+    --vermelho: #FF3B30;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: "Archivo", system-ui, sans-serif;
+    background: var(--preto);
+    color: var(--texto);
+    min-height: 100vh;
+    padding-bottom: 96px; /* espaço para o botão fixo */
+  }
+  .wrap { max-width: 480px; margin: 0 auto; }
+
+  /* ---------- Topo com faixas de sinalização ---------- */
+  .hero {
+    position: relative;
+    padding: 28px 16px 24px;
+    text-align: center;
+    background:
+      repeating-linear-gradient(-45deg, var(--amarelo) 0 26px, var(--preto) 26px 52px) top / 100% 120px no-repeat,
+      var(--preto);
+  }
+  .badge-24h {
+    position: absolute; top: 14px; right: 14px;
+    background: var(--preto); color: var(--amarelo);
+    border: 2px solid var(--amarelo);
+    font-family: "Anton", sans-serif; font-size: 15px; letter-spacing: .5px;
+    padding: 4px 10px; border-radius: 999px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .badge-24h::before {
+    content: ""; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--verde); box-shadow: 0 0 0 0 rgba(37,211,102,.7);
+    animation: ping 1.6s infinite;
+  }
+  @keyframes ping { 70% { box-shadow: 0 0 0 8px rgba(37,211,102,0); } 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); } }
+
+  .foto {
+    width: 190px; height: 190px; margin: 30px auto 0;
+    border-radius: 50%;
+    border: 6px solid var(--amarelo);
+    background: var(--preto-2);
+    overflow: hidden;
+    display: grid; place-items: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,.6);
+  }
+  .foto img { width: 100%; height: 100%; object-fit: cover; }
+  .foto svg { width: 120px; height: auto; }
+
+  h1 {
+    font-family: "Anton", sans-serif; font-weight: 400;
+    font-size: 46px; line-height: 1; letter-spacing: 1px;
+    text-transform: uppercase; margin-top: 18px;
+  }
+  h1 span { color: var(--amarelo); }
+  .sub {
+    font-weight: 800; color: var(--amarelo); font-size: 18px; margin-top: 6px;
+  }
+  .area {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 12px; font-size: 14px; color: var(--texto-2);
+  }
+  .area svg { width: 16px; height: 16px; fill: var(--amarelo); flex: none; }
+
+  /* ---------- Botão principal ---------- */
+  .cta-principal {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    margin: 22px 16px 0;
+    padding: 20px 16px;
+    background: var(--verde); color: #fff;
+    border-radius: 16px; text-decoration: none;
+    font-family: "Anton", sans-serif; font-size: 26px; letter-spacing: .5px; text-transform: uppercase;
+    box-shadow: 0 6px 0 var(--verde-escuro), 0 12px 30px rgba(37,211,102,.35);
+    animation: pulsar 2.2s ease-in-out infinite;
+  }
+  .cta-principal:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--verde-escuro); }
+  .cta-principal svg { width: 32px; height: 32px; fill: #fff; flex: none; }
+  @keyframes pulsar { 50% { transform: scale(1.03); } }
+  .cta-nota { text-align: center; font-size: 13px; color: var(--texto-2); margin-top: 10px; }
+
+  /* ---------- Botões por necessidade ---------- */
+  .secao { padding: 30px 16px 0; }
+  .secao h2 {
+    font-family: "Anton", sans-serif; font-weight: 400; text-transform: uppercase;
+    font-size: 24px; letter-spacing: .5px; text-align: center;
+  }
+  .secao h2 + p { text-align: center; color: var(--texto-2); font-size: 14px; margin-top: 4px; }
+
+  .opcoes { display: grid; gap: 12px; margin-top: 16px; }
+  .opcao {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px;
+    background: var(--preto-2);
+    border: 2px solid var(--cinza);
+    border-left: 6px solid var(--amarelo);
+    border-radius: 14px;
+    color: var(--texto); text-decoration: none;
+    transition: border-color .15s, background .15s;
+  }
+  .opcao:active { background: var(--cinza); border-color: var(--amarelo); }
+  .opcao.urgente { border-left-color: var(--vermelho); }
+  .icone {
+    width: 48px; height: 48px; flex: none; border-radius: 12px;
+    background: var(--amarelo); display: grid; place-items: center;
+  }
+  .urgente .icone { background: var(--vermelho); }
+  .icone svg { width: 28px; height: 28px; fill: var(--preto); }
+  .urgente .icone svg { fill: #fff; }
+  .opcao strong { display: block; font-size: 17px; font-weight: 800; }
+  .opcao small { display: block; font-size: 13px; color: var(--texto-2); margin-top: 2px; }
+  .seta { margin-left: auto; flex: none; width: 22px; height: 22px; fill: var(--verde); }
+
+  /* ---------- Ligação + rodapé ---------- */
+  .ligar {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    margin: 24px 16px 0; padding: 16px;
+    border: 2px solid var(--amarelo); border-radius: 14px;
+    color: var(--amarelo); text-decoration: none; font-weight: 800; font-size: 18px;
+  }
+  .ligar svg { width: 22px; height: 22px; fill: var(--amarelo); }
+
+  .faixa {
+    height: 18px; margin-top: 32px;
+    background: repeating-linear-gradient(-45deg, var(--amarelo) 0 18px, var(--preto) 18px 36px);
+  }
+  footer { text-align: center; padding: 18px 16px 8px; font-size: 13px; color: var(--texto-2); line-height: 1.6; }
+
+  /* ---------- Botão fixo no rodapé ---------- */
+  .fixo {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    background: linear-gradient(to top, var(--preto) 70%, transparent);
+    opacity: 0; transform: translateY(100%);
+    transition: opacity .25s, transform .25s;
+  }
+  .fixo.visivel { opacity: 1; transform: none; }
+  .fixo a {
+    max-width: 448px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 16px; border-radius: 14px;
+    background: var(--verde); color: #fff; text-decoration: none;
+    font-family: "Anton", sans-serif; font-size: 20px; text-transform: uppercase; letter-spacing: .5px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.5);
+  }
+  .fixo svg { width: 24px; height: 24px; fill: #fff; }
+
+  /* ---------- Aviso "adicionar à tela inicial" ---------- */
+  .instalar {
+    display: none;
+    margin: 24px 16px 0; padding: 16px;
+    background: var(--preto-2);
+    border: 2px dashed var(--amarelo); border-radius: 14px;
+    position: relative;
+  }
+  .instalar.visivel { display: block; }
+  .instalar-topo { display: flex; align-items: center; gap: 12px; padding-right: 24px; }
+  .instalar-topo img { width: 52px; height: 52px; border-radius: 12px; flex: none; }
+  .instalar strong { display: block; font-size: 16px; font-weight: 800; }
+  .instalar p { font-size: 13px; color: var(--texto-2); margin-top: 2px; line-height: 1.4; }
+  .instalar button.acao {
+    width: 100%; margin-top: 12px; padding: 14px;
+    border: 0; border-radius: 12px;
+    background: var(--amarelo); color: var(--preto);
+    font: 800 16px "Archivo", sans-serif; cursor: pointer;
+  }
+  .instalar .fechar {
+    position: absolute; top: 8px; right: 8px;
+    width: 32px; height: 32px; border: 0; background: none;
+    color: var(--texto-2); font-size: 22px; line-height: 1; cursor: pointer;
+  }
+  .passos-ios { display: none; margin-top: 12px; font-size: 14px; line-height: 1.6; }
+  .passos-ios b { color: var(--amarelo); }
+  .passos-ios .share {
+    display: inline-block; width: 18px; height: 18px; vertical-align: -3px;
+    fill: var(--amarelo);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cta-principal, .badge-24h::before { animation: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="badge-24h">24 HORAS</div>
+
+    <div class="foto">
+      <!-- Coloque a foto do seu caminhão na mesma pasta com o nome caminhao.jpg -->
+      <img src="caminhao.jpg" alt="Caminhão guincho Bocão Guincho" onerror="this.remove()">
+      <svg viewBox="0 0 120 70" aria-hidden="true">
+        <rect x="2" y="30" width="62" height="22" rx="3" fill="#FFC400"/>
+        <path d="M64 22h26l14 16v14H64z" fill="#FFC400"/>
+        <path d="M70 27h18l9 11H70z" fill="#111"/>
+        <path d="M10 30 40 8l4 4-26 18z" fill="#FFC400"/>
+        <path d="M40 8v14" stroke="#FFC400" stroke-width="3"/>
+        <path d="M40 22c0 4 4 4 4 0" stroke="#FFC400" stroke-width="3" fill="none"/>
+        <rect x="76" y="16" width="10" height="5" rx="2" fill="#FF3B30"/>
+        <circle cx="22" cy="54" r="9" fill="#111" stroke="#FFC400" stroke-width="4"/>
+        <circle cx="88" cy="54" r="9" fill="#111" stroke="#FFC400" stroke-width="4"/>
+      </svg>
+    </div>
+
+    <h1>Bocão <span>Guincho</span></h1>
+    <p class="sub">Socorro rápido, 24h por dia</p>
+    <p class="area">
+      <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
+      Toda São Paulo e Litoral
+    </p>
+  </header>
+
+  <a class="cta-principal" data-msg="principal" href="#">
+    <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-1-2.3c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1 1 12 21.8zm8.4-18.2A11.8 11.8 0 0 0 1.9 17.9L.2 24l6.3-1.6A11.8 11.8 0 0 0 24 12c0-3.2-1.2-6.1-3.6-8.4z"/></svg>
+    Chamar guincho agora
+  </a>
+  <p class="cta-nota">Resposta rápida pelo WhatsApp</p>
+
+  <section class="secao">
+    <h2>Qual é o seu problema?</h2>
+    <p>Toque na opção e a mensagem já vai pronta</p>
+
+    <div class="opcoes">
+      <a class="opcao urgente" data-msg="emergencia" href="#">
+        <span class="icone"><svg viewBox="0 0 24 24"><path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/></svg></span>
+        <span><strong>Emergência / Acidente</strong><small>Preciso de socorro urgente</small></span>
+        <svg class="seta" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6-1.4-1.4L12.2 12 7.6 7.4z"/></svg>
+      </a>
+
+      <a class="opcao" data-msg="eletrica" href="#">
+        <span class="icone"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
+        <span><strong>Pane elétrica</strong><small>Carro não liga, bateria arriou</small></span>
+        <svg class="seta" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6-1.4-1.4L12.2 12 7.6 7.4z"/></svg>
+      </a>
+
+      <a class="opcao" data-msg="seca" href="#">
+        <span class="icone"><svg viewBox="0 0 24 24"><path d="M19.8 7.2 16.6 4l-1.1 1.1 2 2c-.9.4-1.5 1.2-1.5 2.2a2.5 2.5 0 0 0 2.5 2.5c.4 0 .7-.1 1-.2v7.4a1 1 0 0 1-2 0V14a2 2 0 0 0-2-2h-1V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v16h10v-7.5h1.5v5a2.5 2.5 0 0 0 5 0V9c0-.7-.3-1.3-.7-1.8zM12 10H6V5h6v5z"/></svg></span>
+        <span><strong>Pane seca</strong><small>Acabou o combustível</small></span>
+        <svg class="seta" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6-1.4-1.4L12.2 12 7.6 7.4z"/></svg>
+      </a>
+
+      <a class="opcao" data-msg="agendado" href="#">
+        <span class="icone"><svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V9h14v11zM7 11h5v5H7z"/></svg></span>
+        <span><strong>Transporte agendado</strong><small>Levar meu veículo em data marcada</small></span>
+        <svg class="seta" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6-1.4-1.4L12.2 12 7.6 7.4z"/></svg>
+      </a>
+
+      <a class="opcao" data-msg="cotacao" href="#">
+        <span class="icone"><svg viewBox="0 0 24 24"><path d="M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22zm1.4 17.1V20h-2.7v-1.9c-1.7-.4-3.2-1.5-3.3-3.4h2c.1 1 .8 1.8 2.6 1.8 1.9 0 2.3-.9 2.3-1.5 0-.8-.4-1.5-2.6-2-2.4-.6-4-1.6-4-3.6 0-1.7 1.4-2.8 3-3.1V4.4h2.7v1.9c1.8.4 2.7 1.8 2.7 3.2h-2c0-1-.6-1.7-2-1.7-1.4 0-2.2.6-2.2 1.5 0 .8.6 1.3 2.6 1.8 2 .5 4 1.4 4 3.8 0 1.7-1.3 2.7-3 3.1z"/></svg></span>
+        <span><strong>Só quero uma cotação</strong><small>Saber o valor do serviço</small></span>
+        <svg class="seta" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6-1.4-1.4L12.2 12 7.6 7.4z"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <a class="ligar" href="tel:+5511939364707">
+    <svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>
+    Prefere ligar? (11) 93936-4707
+  </a>
+
+  <div class="instalar" id="instalar">
+    <button class="fechar" id="instalar-fechar" aria-label="Fechar">×</button>
+    <div class="instalar-topo">
+      <img src="icons/icon-192.png" alt="">
+      <div>
+        <strong>Deixe o guincho a um toque</strong>
+        <p>Coloque o Bocão Guincho na tela inicial do seu celular. Na hora do aperto, é só tocar no ícone.</p>
+      </div>
+    </div>
+    <button class="acao" id="instalar-botao">📲 Adicionar à tela inicial</button>
+    <div class="passos-ios" id="passos-ios">
+      1. Toque em <b>Compartilhar</b>
+      <svg class="share" viewBox="0 0 24 24"><path d="M12 2 7.8 6.2l1.4 1.4L11 5.8V15h2V5.8l1.8 1.8 1.4-1.4zM5 10v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V10h-3v2h1v8H7v-8h1v-2z"/></svg>
+      na barra do Safari<br>
+      2. Escolha <b>Adicionar à Tela de Início</b><br>
+      3. Toque em <b>Adicionar</b>
+    </div>
+  </div>
+
+  <div class="faixa"></div>
+  <footer>
+    <strong>Bocão Guincho</strong> · Guincho 24 horas<br>
+    Atendemos todas as regiões de São Paulo e o Litoral
+  </footer>
+</div>
+
+<div class="fixo" id="fixo">
+  <a data-msg="principal" href="#">
+    <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-1-2.3c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1 1 12 21.8zm8.4-18.2A11.8 11.8 0 0 0 1.9 17.9L.2 24l6.3-1.6A11.8 11.8 0 0 0 24 12c0-3.2-1.2-6.1-3.6-8.4z"/></svg>
+    Chamar guincho agora
+  </a>
+</div>
+
+<script>
+  // Número do WhatsApp (somente dígitos, com 55 + DDD)
+  const WHATSAPP = "5511939364707";
+
+  // Mensagem que cada botão envia — edite à vontade
+  const MENSAGENS = {
+    principal:  "Oi, Bocão Guincho! 👋 Preciso de um guincho agora. Podem me ajudar?\n\n📍 Estou em: ",
+    emergencia: "🚨 Oi! É uma EMERGÊNCIA, preciso de guincho urgente.\n\n📍 Estou em: \n🚗 Veículo: ",
+    eletrica:   "Oi! 🔋 Meu carro está com PANE ELÉTRICA (não liga / bateria arriou). Preciso de socorro.\n\n📍 Estou em: \n🚗 Veículo: ",
+    seca:       "Oi! ⛽ Fiquei com PANE SECA (acabou o combustível). Preciso de ajuda.\n\n📍 Estou em: \n🚗 Veículo: ",
+    agendado:   "Oi! 📅 Quero agendar um TRANSPORTE do meu veículo.\n\n🚗 Veículo: \n📍 Retirada: \n🏁 Destino: \n🗓️ Data: ",
+    cotacao:    "Oi! 💬 Gostaria de fazer uma COTAÇÃO de guincho.\n\n📍 De: \n🏁 Para: \n🚗 Veículo: "
+  };
+
+  document.querySelectorAll("[data-msg]").forEach(function (el) {
+    const texto = MENSAGENS[el.dataset.msg];
+    // api.whatsapp.com direto (o redirecionamento do wa.me estraga os emojis)
+    el.href = "https://api.whatsapp.com/send?phone=" + WHATSAPP + "&text=" + encodeURIComponent(texto);
+    el.target = "_blank";
+    el.rel = "noopener";
+  });
+
+  // Mostra o botão fixo depois que o principal sai da tela
+  const fixo = document.getElementById("fixo");
+  const principal = document.querySelector(".cta-principal");
+  new IntersectionObserver(function (entradas) {
+    fixo.classList.toggle("visivel", !entradas[0].isIntersecting);
+  }).observe(principal);
+
+  // ---------- Adicionar à tela inicial ----------
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js").catch(function () {});
+  }
+
+  const caixa = document.getElementById("instalar");
+  const botao = document.getElementById("instalar-botao");
+  const passosIos = document.getElementById("passos-ios");
+  const jaInstalado = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+  const ehIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  let pedidoInstalacao = null;
+
+  function fechouAntes() {
+    try { return localStorage.getItem("instalar-fechado") === "1"; } catch (e) { return false; }
+  }
+  function mostrar() {
+    if (!jaInstalado && !fechouAntes()) caixa.classList.add("visivel");
+  }
+
+  // Android / Chrome: o navegador avisa quando dá para instalar
+  window.addEventListener("beforeinstallprompt", function (e) {
+    e.preventDefault();
+    pedidoInstalacao = e;
+    mostrar();
+  });
+
+  // iPhone: não existe botão automático, então mostramos o passo a passo
+  if (ehIos) mostrar();
+
+  botao.addEventListener("click", function () {
+    if (pedidoInstalacao) {
+      pedidoInstalacao.prompt();
+      pedidoInstalacao.userChoice.finally(function () {
+        pedidoInstalacao = null;
+        caixa.classList.remove("visivel");
+      });
+    } else {
+      botao.style.display = "none";
+      passosIos.style.display = "block";
+    }
+  });
+
+  document.getElementById("instalar-fechar").addEventListener("click", function () {
+    caixa.classList.remove("visivel");
+    try { localStorage.setItem("instalar-fechado", "1"); } catch (e) {}
+  });
+
+  window.addEventListener("appinstalled", function () {
+    caixa.classList.remove("visivel");
+  });
+</script>
+</body>
+</html>
